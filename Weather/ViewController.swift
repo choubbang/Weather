@@ -21,6 +21,8 @@ class ViewController: UIViewController {
     
     @IBOutlet weak var WeatherImage: UIImageView!
     
+    @IBOutlet weak var DustImage: UIImageView!
+    @IBOutlet weak var DustLabel: UILabel!
     @IBOutlet weak var DustConditionLabel: UILabel!
 
     
@@ -29,11 +31,12 @@ class ViewController: UIViewController {
     }
     
     var newApi = OpenWeatherSwift(apiKey: "7d872044b2fa580d43b45a2e4bf536a3", temperatureFormat: .Celsius, lang: .Korea)
+    var newAQApi = AirQuality()
     
     func currentWeather() {
         
         var GetId: String? = "1838519"
-        self.LocationLabel.text = "부산광역시"
+        self.LocationLabel.text = ""
         
         newApi.currentWeatherByID(id: GetId!) { (results) in
             let weather = Weather(data: results)
@@ -43,6 +46,61 @@ class ViewController: UIViewController {
             self.WeatherImage.image = self.newApi.getIconFromID(id: weather.icon)
 
         }
+        
+        newAQApi.currentDustByCity(name: "busan") { (results) in
+            let aqpm25 = Set_PM25(data: results)
+            
+            var pm10 = aqpm25.pm10
+            var condition: String = self.pm10conditioneSelection(setpm10: pm10)
+            let imageName: String = self.pm10imageSelection(setpm10: pm10)
+            
+            self.DustImage.image = UIImage(named: imageName)
+            self.DustLabel.text = "미세먼지 : \(pm10)"
+            self.DustConditionLabel.text = "\(condition)" as String
+        }
+    }
+    
+    func pm10imageSelection (setpm10: Int) -> String {
+        
+        var imageName: String = ""
+        
+        if setpm10 <= 54 {
+            imageName = "AQI_1"
+        } else if setpm10 <= 154 {
+            imageName = "AQI_2"
+        } else if setpm10 <= 254 {
+            imageName = "AQI_3"
+        } else if setpm10 <= 354 {
+            imageName = "AQI_4"
+        } else if setpm10 <= 424 {
+            imageName = "AQI_5"
+        } else {
+            imageName = "AQI_6"
+        }
+        
+        
+        return imageName
+    }
+    
+    func pm10conditioneSelection (setpm10: Int) -> String {
+        
+        var conditionName: String = ""
+        
+        if setpm10 <= 54 {
+            conditionName = "좋음"
+        } else if setpm10 <= 154 {
+            conditionName = "보통"
+        } else if setpm10 <= 254 {
+            conditionName = "나쁨"
+        } else if setpm10 <= 354 {
+            conditionName = "매우나쁨"
+        } else if setpm10 <= 424 {
+            conditionName = "해로움"
+        } else {
+            conditionName = "위험"
+        }
+        
+        return conditionName
         
     }
     

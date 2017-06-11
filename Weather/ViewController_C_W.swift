@@ -67,9 +67,6 @@ class ViewController_C_W: UIViewController {
     }
     
     
-
-    
-    
     var newApi = OpenWeatherSwift(apiKey: "7d872044b2fa580d43b45a2e4bf536a3", temperatureFormat: .Celsius, lang: .Korea)
     
     func currentWeather() {
@@ -78,7 +75,7 @@ class ViewController_C_W: UIViewController {
         
         newApi.currentWeatherByID(id: seoulId!) { (results) in
             let weather = Weather(data: results)
-
+            
             self.seoulImage.image = self.newApi.getIconFromID(id: weather.icon)
             self.seoulLabel.text = "서울 \(weather.temperature)°" as String
             

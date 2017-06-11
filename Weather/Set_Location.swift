@@ -9,16 +9,25 @@
 import UIKit
 import SwiftyJSON
 import Alamofire
+import CoreLocation
+import MapKit
 
 class Set_Location: UIViewController {
 
-    func Get_Location() -> String {
-        
-        let id = "1835847"
-        
-        return id
+    var locationManager: CLLocationManager = CLLocationManager()
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+
+        locationManager.delegate = self as! CLLocationManagerDelegate
+        locationManager.requestWhenInUseAuthorization()
+        locationManager.desiredAccuracy = kCLLocationAccuracyBest
+        locationManager.startUpdatingLocation()
+    }
+    
+    override func didReceiveMemoryWarning() {
+        super.didReceiveMemoryWarning()
+        // Dispose of any resources that can be recreated.
     }
 
-    
 }
-
