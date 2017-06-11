@@ -11,23 +11,32 @@ import SwiftyJSON
 import Alamofire
 import CoreLocation
 import MapKit
+import AddressBookUI
 
-class Set_Location: UIViewController {
+class Set_Location: UIViewController, CLLocationManagerDelegate {
 
-    var locationManager: CLLocationManager = CLLocationManager()
+    let locationManager = CLLocationManager()
     
-    override func viewDidLoad() {
-        super.viewDidLoad()
-
-        locationManager.delegate = self as! CLLocationManagerDelegate
-        locationManager.requestWhenInUseAuthorization()
-        locationManager.desiredAccuracy = kCLLocationAccuracyBest
-        locationManager.startUpdatingLocation()
+    func goLocation(latitude latitudeValue: CLLocationDegrees, longitude longitudeValue : CLLocationDegrees, delta span :Double)-> CLLocationCoordinate2D {
+        let pLocation = CLLocationCoordinate2DMake(latitudeValue, longitudeValue)
+        let spanValue = MKCoordinateSpanMake(span, span)
+        let pRegion = MKCoordinateRegionMake(pLocation, spanValue)
+        return pLocation
     }
     
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
+    
+    func setAnnotation(latitude latitudeValue: CLLocationDegrees, longitude longitudeValue : CLLocationDegrees, delta span :Double, title strTitle: String, subtitle strSubtitle:String) {
+        let annotation = MKPointAnnotation()
+        annotation.coordinate = goLocation(latitude: latitudeValue, longitude: longitudeValue, delta: span)
+        annotation.title = strTitle
+        annotation.subtitle = strSubtitle
     }
-
+    
+    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        let pLocation = locations.last
+        let annotation = MKPointAnnotation()
+        annotation.coordinate = goLocation(latitude: (pLocation?.coordinate.latitude)!, longitude: (pLocation?.coordinate.longitude)!, delta: 0.01)
+        
+        self.locationManager.stopUpdatingLocation()
+    }
 }

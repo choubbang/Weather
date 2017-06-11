@@ -11,8 +11,10 @@ import SwiftyJSON
 import Alamofire
 import OpenWeatherSwift
 import CoreLocation
+import MapKit
+import AddressBookUI
 
-class ViewController: UIViewController {
+class ViewController: UIViewController, CLLocationManagerDelegate {
     
     @IBOutlet weak var LocationLabel: UILabel!
     
@@ -27,57 +29,31 @@ class ViewController: UIViewController {
 
     
     @IBAction func RefreshButton(_ sender: Any) {
-        currentWeather()
+        locationManager.startUpdatingLocation()
     }
     
     var newApi = OpenWeatherSwift(apiKey: "7d872044b2fa580d43b45a2e4bf536a3", temperatureFormat: .Celsius, lang: .Korea)
     var newAQApi = AirQuality()
     
-    func currentWeather() {
-        
-        var GetId: String? = "1838519"
-        self.LocationLabel.text = ""
-        
-        newApi.currentWeatherByID(id: GetId!) { (results) in
-            let weather = Weather(data: results)
-            
-            self.TempLabel.text = "\(weather.temperature)°C" as String
-            self.ConditionLabel.text = "\(weather.description)" as String
-            self.WeatherImage.image = self.newApi.getIconFromID(id: weather.icon)
-
-        }
-        
-        newAQApi.currentDustByCity(name: "busan") { (results) in
-            let aqpm25 = Set_PM25(data: results)
-            
-            var pm10 = aqpm25.pm10
-            var condition: String = self.pm10conditioneSelection(setpm10: pm10)
-            let imageName: String = self.pm10imageSelection(setpm10: pm10)
-            
-            self.DustImage.image = UIImage(named: imageName)
-            self.DustLabel.text = "미세먼지 : \(pm10)"
-            self.DustConditionLabel.text = "\(condition)" as String
-        }
-    }
+    let locationManager = CLLocationManager()
     
     func pm10imageSelection (setpm10: Int) -> String {
         
         var imageName: String = ""
         
         if setpm10 <= 54 {
-            imageName = "AQI_1"
+            imageName = "AQI_1.png"
         } else if setpm10 <= 154 {
-            imageName = "AQI_2"
+            imageName = "AQI_2.png"
         } else if setpm10 <= 254 {
-            imageName = "AQI_3"
+            imageName = "AQI_3.png"
         } else if setpm10 <= 354 {
-            imageName = "AQI_4"
+            imageName = "AQI_4.png"
         } else if setpm10 <= 424 {
-            imageName = "AQI_5"
+            imageName = "AQI_5.png"
         } else {
-            imageName = "AQI_6"
+            imageName = "AQI_6.png"
         }
-        
         
         return imageName
     }
@@ -104,11 +80,75 @@ class ViewController: UIViewController {
         
     }
     
+    func goLocation(latitude latitudeValue: CLLocationDegrees, longitude longitudeValue : CLLocationDegrees, delta span :Double)-> CLLocationCoordinate2D {
+        let pLocation = CLLocationCoordinate2DMake(latitudeValue, longitudeValue)
+        let spanValue = MKCoordinateSpanMake(span, span)
+        let pRegion = MKCoordinateRegionMake(pLocation, spanValue)
+        return pLocation
+    }
+    
+    
+    func setAnnotation(latitude latitudeValue: CLLocationDegrees, longitude longitudeValue : CLLocationDegrees, delta span :Double, title strTitle: String, subtitle strSubtitle:String) {
+        let annotation = MKPointAnnotation()
+        annotation.coordinate = goLocation(latitude: latitudeValue, longitude: longitudeValue, delta: span)
+        annotation.title = strTitle
+        annotation.subtitle = strSubtitle
+    }
+    
+    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        let pLocation = locations.last
+        let annotation = MKPointAnnotation()
+        annotation.coordinate = goLocation(latitude: (pLocation?.coordinate.latitude)!, longitude: (pLocation?.coordinate.longitude)!, delta: 0.01)
+        CLGeocoder().reverseGeocodeLocation(pLocation!, completionHandler: {
+            (placemarks, error) -> Void in
+            let pm = placemarks!.first
+            let country = pm!.country
+            var address:String = country!
+            if pm!.locality != nil {
+                address += " "
+                address += pm!.locality!
+            }
+            if pm!.thoroughfare != nil {
+                address += " "
+                address += pm!.thoroughfare!
+            }
+            
+            self.LocationLabel.text = address as String
+            
+            self.newApi.currentWeatherByCoordinates(coords: annotation.coordinate) { (results) in
+                let weather = Weather(data: results)
+                
+                self.TempLabel.text = "\(weather.temperature)°C" as String
+                self.ConditionLabel.text = "\(weather.description)" as String
+                self.WeatherImage.image = self.newApi.getIconFromID(id: weather.icon)
+                
+            }
+            
+            self.newAQApi.currentDustByCoordinates(coords: annotation.coordinate) { (results) in
+                let aqpm25 = Set_PM25(data: results)
+                
+                var pm10 = aqpm25.pm10
+                var condition: String = self.pm10conditioneSelection(setpm10: pm10)
+                let imageName: String = self.pm10imageSelection(setpm10: pm10)
+                
+                self.DustImage.image = UIImage(named: imageName)
+                self.DustLabel.text = "미세먼지 : \(pm10)"
+                self.DustConditionLabel.text = "\(condition)" as String
+            }
+        })
+        locationManager.stopUpdatingLocation()
+    }
+
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
         
-        currentWeather()
+        locationManager.delegate = self
+        locationManager.desiredAccuracy = kCLLocationAccuracyBest
+        locationManager.requestWhenInUseAuthorization()
+        locationManager.startUpdatingLocation()
+
         
     }
     
