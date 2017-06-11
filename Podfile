@@ -1,9 +1,8 @@
-platform :ios, '8.0'
+platform :ios, ’10.0’
 use_frameworks!
-source 'https://github.com/CocoaPods/Specs.git'
 
 target ‘Weather’ do
-
-pod 'SwiftyJSON', :git => 'https://github.com/SwiftyJSON/SwiftyJSON.git'
-
+	pod 'SwiftyJSON'
+	pod ‘Alamofire’, ‘~> 4.4’
+	pod ‘OpenWeatherSwift’
 end
