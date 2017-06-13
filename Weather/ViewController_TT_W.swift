@@ -16,6 +16,10 @@ class ViewController_TT_W: UIViewController, UITableViewDelegate, UITableViewDat
     
 
     @IBOutlet weak var tbleJSON: UITableView!
+    @IBAction func refreshButton(_ sender: Any) {
+        locationManager.startUpdatingLocation()
+        
+    }
     
     var newApi = OpenWeatherSwift(apiKey: "7d872044b2fa580d43b45a2e4bf536a3", temperatureFormat: .Celsius, lang: .Korea)
     
@@ -54,7 +58,7 @@ class ViewController_TT_W: UIViewController, UITableViewDelegate, UITableViewDat
         self.newApi.forecastWeatherByCoordinates(coords: annotation.coordinate, type: .Hourly) { (results) in
             let forecast = Forecast(data: results, type: .Hourly)
             
-            let countTemp = indexPath.row
+            var countTemp = indexPath.row
             
             cell.TempConditionLabel.text = "\(forecast.temperatures[countTemp])°C" as String
             cell.UpdateDateLabel.text = "\(forecast.dates[countTemp])" as String
@@ -68,7 +72,7 @@ class ViewController_TT_W: UIViewController, UITableViewDelegate, UITableViewDat
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 40
+        return 20   
     }
     
     func numberOfSections(in tableView: UITableView) -> Int {
