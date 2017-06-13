@@ -16,10 +16,6 @@ class ViewController_TT_W: UIViewController, UITableViewDelegate, UITableViewDat
     
 
     @IBOutlet weak var tbleJSON: UITableView!
-    @IBAction func refreshButton(_ sender: Any) {
-        locationManager.startUpdatingLocation()
-        
-    }
     
     var newApi = OpenWeatherSwift(apiKey: "7d872044b2fa580d43b45a2e4bf536a3", temperatureFormat: .Celsius, lang: .Korea)
     
@@ -65,14 +61,12 @@ class ViewController_TT_W: UIViewController, UITableViewDelegate, UITableViewDat
             
             cell.WeatherImage.image = self.newApi.getIconFromID(id: forecast.icon[countTemp])
         }
-
-        
         
         return cell
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 20   
+        return 20
     }
     
     func numberOfSections(in tableView: UITableView) -> Int {

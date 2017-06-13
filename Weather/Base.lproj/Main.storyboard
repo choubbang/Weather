@@ -664,13 +664,7 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
-                    <navigationItem key="navigationItem" title="지역 날씨 예보" id="4Xd-4t-j2V">
-                        <barButtonItem key="rightBarButtonItem" systemItem="refresh" id="vkX-kQ-wV6">
-                            <connections>
-                                <action selector="refreshButton:" destination="Swl-6e-6hO" id="vye-7z-d5s"/>
-                            </connections>
-                        </barButtonItem>
-                    </navigationItem>
+                    <navigationItem key="navigationItem" title="지역 날씨 예보" id="4Xd-4t-j2V"/>
                     <connections>
                         <outlet property="tbleJSON" destination="Uyp-hz-ZNL" id="ZmR-7P-qAS"/>
                     </connections>
