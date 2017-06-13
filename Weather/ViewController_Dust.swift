@@ -50,6 +50,7 @@ class ViewController_Dust: UIViewController, CLLocationManagerDelegate {
         annotation.subtitle = strSubtitle
     }
     
+    
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         let pLocation = locations.last
         let annotation = MKPointAnnotation()
@@ -67,6 +68,7 @@ class ViewController_Dust: UIViewController, CLLocationManagerDelegate {
                 address += " "
                 address += pm!.thoroughfare!
             }
+            
             
             self.newAQApi.currentDustByCoordinates(coords: annotation.coordinate) { (results) in
                 
@@ -194,7 +196,6 @@ class ViewController_Dust: UIViewController, CLLocationManagerDelegate {
         locationManager.desiredAccuracy = kCLLocationAccuracyBest
         locationManager.requestWhenInUseAuthorization()
         locationManager.startUpdatingLocation()
-        
     }
     
     override func didReceiveMemoryWarning() {

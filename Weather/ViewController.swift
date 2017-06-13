@@ -114,7 +114,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
             }
             
             self.LocationLabel.text = address as String
-            
+           
             self.newApi.currentWeatherByCoordinates(coords: annotation.coordinate) { (results) in
                 let weather = Weather(data: results)
                 
@@ -135,6 +135,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
                 self.DustLabel.text = "미세먼지 : \(pm10)"
                 self.DustConditionLabel.text = "\(condition)" as String
             }
+            
         })
         locationManager.stopUpdatingLocation()
     }
@@ -148,7 +149,6 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
         locationManager.desiredAccuracy = kCLLocationAccuracyBest
         locationManager.requestWhenInUseAuthorization()
         locationManager.startUpdatingLocation()
-
         
     }
     

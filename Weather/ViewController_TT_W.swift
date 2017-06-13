@@ -51,6 +51,7 @@ class ViewController_TT_W: UIViewController, UITableViewDelegate, UITableViewDat
 
         locationManager.startUpdatingLocation()
         
+    
         self.newApi.forecastWeatherByCoordinates(coords: annotation.coordinate, type: .Hourly) { (results) in
             let forecast = Forecast(data: results, type: .Hourly)
             
