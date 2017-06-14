@@ -13,7 +13,7 @@ class licenseViewController: UIViewController {
     @IBOutlet weak var licenseText: UITextView!
 
     func writelicenseText() {
-        self.licenseText.text = "OpenAPI\n - 날씨 : https://openweathermap.org/ 이용\n - 미세먼지 : http://aqicn.org/\n\n그 외\n - 지도 : 구글맵스"
+        self.licenseText.text = "OpenAPI\n - 날씨 : https://openweathermap.org/ 이용\n - 미세먼지 : http://aqicn.org/\n\n그 외\n - 지도 : 구글맵스\n - 런처화면 폰트 : 나눔고딕"
     }
     override func viewDidLoad() {
         super.viewDidLoad()
