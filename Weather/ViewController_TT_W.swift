@@ -42,7 +42,6 @@ class ViewController_TT_W: UIViewController, UITableViewDelegate, UITableViewDat
         
         annotation.coordinate = goLocation(latitude: (pLocation?.coordinate.latitude)!, longitude: (pLocation?.coordinate.longitude)!, delta: 0.01)
         
-        self.locationManager.stopUpdatingLocation()
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -62,6 +61,8 @@ class ViewController_TT_W: UIViewController, UITableViewDelegate, UITableViewDat
             
             cell.WeatherImage.image = self.newApi.getIconFromID(id: forecast.icon[countTemp])
         }
+        
+        self.locationManager.stopUpdatingLocation()
         
         return cell
     }
