@@ -26,6 +26,9 @@
 		A10BFEA01EED71920028FB1A /* dust.png in Resources */ = {isa = PBXBuildFile; fileRef = A10BFE9F1EED71920028FB1A /* dust.png */; };
 		A10BFEA21EEDBEC90028FB1A /* licenseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A10BFEA11EEDBEC90028FB1A /* licenseViewController.swift */; };
 		A10BFEA41EEDBEFE0028FB1A /* dustDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A10BFEA31EEDBEFE0028FB1A /* dustDetailViewController.swift */; };
+		A10BFEA61EF0DB6F0028FB1A /* launcher.png in Resources */ = {isa = PBXBuildFile; fileRef = A10BFEA51EF0DB6F0028FB1A /* launcher.png */; };
+		A10BFEA91EF0DBB90028FB1A /* sreenshot in Resources */ = {isa = PBXBuildFile; fileRef = A10BFEA71EF0DBB90028FB1A /* sreenshot */; };
+		A10BFEAA1EF0DBB90028FB1A /* icon in Resources */ = {isa = PBXBuildFile; fileRef = A10BFEA81EF0DBB90028FB1A /* icon */; };
 		A17F89451EE502CF00D095E0 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A17F89441EE502CF00D095E0 /* AppDelegate.swift */; };
 		A17F89471EE502CF00D095E0 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A17F89461EE502CF00D095E0 /* ViewController.swift */; };
 		A17F894A1EE502CF00D095E0 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A17F89481EE502CF00D095E0 /* Main.storyboard */; };
@@ -60,6 +63,9 @@
 		A10BFE9F1EED71920028FB1A /* dust.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = dust.png; sourceTree = "<group>"; };
 		A10BFEA11EEDBEC90028FB1A /* licenseViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = licenseViewController.swift; sourceTree = "<group>"; };
 		A10BFEA31EEDBEFE0028FB1A /* dustDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = dustDetailViewController.swift; sourceTree = "<group>"; };
+		A10BFEA51EF0DB6F0028FB1A /* launcher.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = launcher.png; sourceTree = "<group>"; };
+		A10BFEA71EF0DBB90028FB1A /* sreenshot */ = {isa = PBXFileReference; lastKnownFileType = folder; path = sreenshot; sourceTree = "<group>"; };
+		A10BFEA81EF0DBB90028FB1A /* icon */ = {isa = PBXFileReference; lastKnownFileType = folder; path = icon; sourceTree = "<group>"; };
 		A17F89411EE502CF00D095E0 /* Weather.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Weather.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A17F89441EE502CF00D095E0 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		A17F89461EE502CF00D095E0 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -96,6 +102,7 @@
 		A10BFE741EECA8520028FB1A /* resource */ = {
 			isa = PBXGroup;
 			children = (
+				A10BFEA51EF0DB6F0028FB1A /* launcher.png */,
 				A10BFE831EED66830028FB1A /* AQI_1.PNG */,
 				A10BFE841EED66830028FB1A /* AQI_2.PNG */,
 				A10BFE851EED66830028FB1A /* AQI_3.PNG */,
@@ -132,6 +139,8 @@
 		A17F89431EE502CF00D095E0 /* Weather */ = {
 			isa = PBXGroup;
 			children = (
+				A10BFEA71EF0DBB90028FB1A /* sreenshot */,
+				A10BFEA81EF0DBB90028FB1A /* icon */,
 				A10BFE741EECA8520028FB1A /* resource */,
 				A1E871C31EE6EFBA0099E07C /* SwiftyJSON.swift */,
 				A17F89441EE502CF00D095E0 /* AppDelegate.swift */,
@@ -225,9 +234,12 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A10BFEAA1EF0DBB90028FB1A /* icon in Resources */,
 				A10BFE8D1EED66830028FB1A /* AQI_5.PNG in Resources */,
 				A10BFE8A1EED66830028FB1A /* AQI_2.PNG in Resources */,
 				A17F894F1EE502CF00D095E0 /* LaunchScreen.storyboard in Resources */,
+				A10BFEA61EF0DB6F0028FB1A /* launcher.png in Resources */,
+				A10BFEA91EF0DBB90028FB1A /* sreenshot in Resources */,
 				A10BFE8C1EED66830028FB1A /* AQI_4.PNG in Resources */,
 				A10BFE8E1EED66830028FB1A /* AQI_6.PNG in Resources */,
 				A10BFE9B1EED6EA60028FB1A /* setting.png in Resources */,
