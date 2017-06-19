@@ -1,6 +1,7 @@
 
 # cocoapod 설치
 
+터미널을 열어줍니다
 
 $ sudo gem install cocoapods
 
